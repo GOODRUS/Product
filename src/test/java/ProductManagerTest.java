@@ -12,7 +12,7 @@ public class ProductManagerTest {
     Product book4 = new Book(17, 95, "Старик и море", "Э.Хемингуэй");
     Product smartphone1 = new Smartphone(56, 8990, "Xiaomi Redmi 9C", "Xiaomi");
     Product smartphone2 = new Smartphone(63, 8400, "Sony Xperia Z3", "Sony");
-    Product smartphone3 = new Smartphone(71, 16200, "Samsung Galaxy A23", "Samsung");
+    Product smartphone3 = new Smartphone(71, 32200, "Sony Xperia 10", "Sony");
 
     @Test
     public void shouldFindAllProducts() {
@@ -24,10 +24,43 @@ public class ProductManagerTest {
         manager.add(smartphone1);
         manager.add(smartphone2);
         manager.add(smartphone3);
-        manager.searchBy("Xiaomi Redmi 9C");
 
         Product[] expected = {book1, book2, book3, book4, smartphone1, smartphone2, smartphone3};
         Product[] actual = repo.findAll();
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSearchBy() {
+
+        manager.add(book1);
+        manager.add(book2);
+        manager.add(book3);
+        manager.add(book4);
+        manager.add(smartphone1);
+        manager.add(smartphone2);
+        manager.add(smartphone3);
+
+        Product[] expected = {smartphone1};
+        Product[] actual = manager.searchBy("Xiaomi Redmi 9C");
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSearchByWord() {
+
+        manager.add(book1);
+        manager.add(book2);
+        manager.add(book3);
+        manager.add(book4);
+        manager.add(smartphone1);
+        manager.add(smartphone2);
+        manager.add(smartphone3);
+
+        Product[] expected = {smartphone2, smartphone3};
+        Product[] actual = manager.searchBy("Sony");
 
         assertArrayEquals(expected, actual);
     }
