@@ -13,6 +13,7 @@ public class ProductManagerTest {
     Product smartphone1 = new Smartphone(56, 8990, "Xiaomi Redmi 9C", "Xiaomi");
     Product smartphone2 = new Smartphone(63, 8400, "Sony Xperia Z3", "Sony");
     Product smartphone3 = new Smartphone(71, 32200, "Sony Xperia 10", "Sony");
+    Product smartphone4 = new Smartphone(81, 12200, "Sony Sonia", "Japan");
 
     @Test
     public void shouldFindAllProducts() {
@@ -61,6 +62,83 @@ public class ProductManagerTest {
 
         Product[] expected = {smartphone2, smartphone3};
         Product[] actual = manager.searchBy("Sony");
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSearchByNothingExpected() {
+
+        manager.add(book1);
+        manager.add(book2);
+        manager.add(book3);
+        manager.add(book4);
+        manager.add(smartphone1);
+        manager.add(smartphone2);
+        manager.add(smartphone3);
+
+        Product[] expected = {};
+        Product[] actual = manager.searchBy("Sony Re");
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSearchByBookName() {
+
+        manager.add(book1);
+        manager.add(book2);
+        manager.add(book3);
+        manager.add(book4);
+        manager.add(smartphone1);
+        manager.add(smartphone2);
+        manager.add(smartphone3);
+
+        Product[] expected = {book4};
+        Product[] actual = manager.searchBy("Старик");
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSearchByOneProduct() {
+
+        manager.add(smartphone3);
+
+        Product[] expected = {smartphone3};
+        Product[] actual = manager.searchBy("Sony");
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSearchNothingAddProduct() {
+
+
+        Product[] expected = {};
+        Product[] actual = manager.searchBy("Sony");
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSearchByProducer() {
+
+        manager.add(smartphone4);
+
+        Product[] expected = {smartphone4};
+        Product[] actual = manager.searchBy("Japan");
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSearchByAuthor() {
+
+        manager.add(book2);
+
+        Product[] expected = {book2};
+        Product[] actual = manager.searchBy("Толстой Л.Н.");
 
         assertArrayEquals(expected, actual);
     }

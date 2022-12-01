@@ -3,6 +3,8 @@ public class Product {
     protected int price;
     protected String name;
 
+    private ProductRepository names;
+
     public Product(int id, int price, String name) {
         this.id = id;
         this.price = price;
@@ -31,5 +33,13 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean matches(String search) {
+        if (getName().contains(search)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
