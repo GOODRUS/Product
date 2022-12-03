@@ -142,5 +142,55 @@ public class ProductManagerTest {
 
         assertArrayEquals(expected, actual);
     }
+
+    /*
+    Дополнительные тесты:
+     */
+
+    /*
+    Тест на метод поиска "searchBy" при ситуации когда находится несколько товаров
+     */
+
+    @Test
+    public void shouldSearchSomeProducts() {
+
+        manager.add(book1);
+        manager.add(book2);
+        manager.add(smartphone1);
+        manager.add(smartphone3);
+
+        Product[] expected = {book2};
+        Product[] actual = manager.searchBy("Война и мир");
+
+        assertArrayEquals(expected, actual);
+    }
+
+    /*
+    Тест на метод поиска "searchBy" при ситуации когда находится ровно один товар
+     */
+
+    @Test
+    public void shouldSearchOnlyOneProduct() {
+
+        manager.add(book1);
+
+        Product[] expected = {book1};
+        Product[] actual = manager.searchBy("Тараканище");
+
+        assertArrayEquals(expected, actual);
+    }
+
+    /*
+    Тест на метод поиска "searchBy" при ситуации когда не добавлено ни одного товара
+     */
+
+    @Test
+    public void shouldSearchNoProducts() {
+
+        Product[] expected = {};
+        Product[] actual = manager.searchBy("Тараканище");
+
+        assertArrayEquals(expected, actual);
+    }
 }
 
