@@ -79,10 +79,11 @@ public class ProductManagerTest {
         manager.add(book1);
         manager.add(book2);
         manager.add(smartphone1);
+        manager.add(smartphone2);
         manager.add(smartphone3);
 
-        Product[] expected = {book2};
-        Product[] actual = manager.searchBy("Война и мир");
+        Product[] expected = {smartphone2, smartphone3};
+        Product[] actual = manager.searchBy("Sony");
 
         assertArrayEquals(expected, actual);
     }
@@ -95,6 +96,9 @@ public class ProductManagerTest {
     public void shouldSearchOnlyOneProduct() {
 
         manager.add(book1);
+        manager.add(book2);
+        manager.add(smartphone1);
+        manager.add(smartphone2);
 
         Product[] expected = {book1};
         Product[] actual = manager.searchBy("Тараканище");
@@ -103,14 +107,37 @@ public class ProductManagerTest {
     }
 
     /*
-    Тест на метод поиска "searchBy" при ситуации когда не добавлено ни одного товара
+    Тест на метод поиска "searchBy" при ситуации когда ни один товар не подходит
      */
 
     @Test
     public void shouldSearchNoProducts() {
 
+        manager.add(book2);
+        manager.add(smartphone1);
+        manager.add(smartphone2);
+        manager.add(smartphone2);
+
         Product[] expected = {};
         Product[] actual = manager.searchBy("Тараканище");
+
+        assertArrayEquals(expected, actual);
+    }
+
+     /*
+    Тест на метод поиска "searchBy" при ситуации когда находится несколько одинаковых товаров
+     */
+
+    @Test
+    public void shouldSearchSameProducts() {
+
+        manager.add(book2);
+        manager.add(smartphone1);
+        manager.add(smartphone2);
+        manager.add(smartphone2);
+
+        Product[] expected = {smartphone2, smartphone2};
+        Product[] actual = manager.searchBy("Sony Xperia Z3");
 
         assertArrayEquals(expected, actual);
     }
